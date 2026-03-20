@@ -32,6 +32,12 @@ jobs:
                              "googleway", "rStrava"))
         shell: Rscript {0}
 
+      - name: Check files
+        run: |
+          cat(".rscignore")
+          list.files(recursive = TRUE)
+        shell: Rscript {0}
+
       - name: Deploy to shinyapps.io
         env:
           SHINYAPPS_ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}

@@ -5,107 +5,8 @@ ui <- navbarPage(
   header = tags$head(
     tags$link(rel = "stylesheet",
               href = "https://fonts.googleapis.com/css2?family=Ranchers&family=Nunito:wght@400;500;600&display=swap"),
-    tags$style(HTML("
-    
-      :root {
-        --col-navy:     #2d3ea1;
-        --col-cream:    #e4e6cc;
-        --col-red:      #bd423e;
-        --col-sky:      #91c0d9;
-        --col-espresso: #3d302f;
-      }
-      
-      body {
-        font-family: 'Nunito', sans-serif;
-        background-color: var(--col-cream);
-        color: var(--col-espresso);
-      }
-      
-      /* navbar styling */
-      .navbar {
-        background-color: var(--col-navy) !important;
-        border: none;
-        font-family: 'Ranchers', cursive;
-      }
-      .navbar-default .navbar-brand,
-      .navbar-default .navbar-nav > li > a {
-        color: var(--col-cream) !important;
-        font-family: 'Ranchers', cursive;
-        font-size: 16px;
-      }
-      .navbar-default .navbar-nav > .active > a,
-      .navbar-default .navbar-nav > .active > a:hover {
-        background-color: var(--col-espresso) !important;
-        color: var(--col-cream) !important;
-      }
-      .navbar-default .navbar-nav > li > a:hover {
-        background-color: rgba(255,255,255,0.1) !important;
-        color: var(--col-cream) !important;
-      }
-      
-      /* sidebar */
-      .well {
-        background-color: var(--col-espresso) !important;
-        border: none !important;
-        border-radius: 0 !important;
-      }
-      .well label, .well h4,
-      .well .control-label,
-      .well select, .well p, .well b {
-        color: var(--col-cream) !important;
-        font-family: 'Nunito', sans-serif;
-      }
-      .well h4 {
-        font-family: 'Ranchers', cursive !important;
-        font-size: 18px;
-        font-weight: 400;
-      }
-      .well hr { border-color: rgba(228,230,204,0.25); }
-      
-      /* selects */
-      .selectize-input {
-        background: rgba(228,230,204,0.12) !important;
-        border-color: rgba(228,230,204,0.3) !important;
-        color: var(--col-cream) !important;
-        font-family: 'Nunito', sans-serif;
-      }
-      .selectize-dropdown {
-        background: var(--col-espresso) !important;
-        color: var(--col-cream) !important;
-      }
-      
-      /* leaflet tooltip */
-      .leaflet-tooltip {
-        font-family: 'Nunito', sans-serif !important;
-        font-size: 13px;
-        background: var(--col-espresso);
-        color: var(--col-cream);
-        border: none;
-        border-radius: 6px;
-        padding: 8px 12px;
-      }
-      .leaflet-tooltip-left:before,
-      .leaflet-tooltip-right:before {
-        border-right-color: var(--col-espresso);
-        border-left-color: var(--col-espresso);
-      }
-      
-      /* data table */
-      .dataTables_wrapper {
-        font-family: 'Nunito', sans-serif;
-        color: var(--col-espresso);
-      }
-      table.dataTable thead {
-        background-color: var(--col-navy);
-        color: var(--col-cream);
-        font-family: 'Ranchers', cursive;
-        font-weight: 400;
-      }
-      table.dataTable tbody tr:hover {
-        background-color: rgba(145,192,217,0.2) !important;
-      }
-      
-    "))
+    tags$link(rel = "stylesheet",
+              href = "styles.css")  # Shiny always serves www/ from the app root
   ),
   
   # ---- Tab 1: Map ----
@@ -113,16 +14,32 @@ ui <- navbarPage(
            sidebarLayout(
              sidebarPanel(
                width = 3,
-               selectInput("time_period", "Select Time Period:",
-                           choices = c("All Time", "Year", "Month", "Week"),
+               selectInput("time_period", 
+                           "Select Time Period:",
+                           choices = c("All Time", 
+                                       "Year", 
+                                       "Month", 
+                                       "Week"),
                            selected = "All Time"),
                conditionalPanel(condition = "input.time_period == 'Year'",
-                                selectInput("selected_year", "Select Year:", choices = NULL)),
+                                selectInput("selected_year", 
+                                            "Select Year:", 
+                                            choices = NULL)),
                conditionalPanel(condition = "input.time_period == 'Month'",
-                                selectInput("selected_month", "Select Month:", choices = NULL)),
+                                selectInput("selected_month", 
+                                            "Select Month:", 
+                                            choices = NULL)),
                conditionalPanel(condition = "input.time_period == 'Week'",
-                                selectInput("selected_week", "Select Week:", choices = NULL)),
+                                selectInput("selected_week", 
+                                            "Select Week:", 
+                                            choices = NULL)),
                hr(),
+               checkboxGroupInput(
+                 inputId  = "selected_types",
+                 label    = "Activity Type:",
+                 choices  = c("Ride", "Run", "Hike"),
+                 selected = c("Ride", "Run", "Hike") 
+               ),
                h4("Summary Statistics"),
                uiOutput("summary_stats")
              ),

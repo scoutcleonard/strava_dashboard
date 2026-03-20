@@ -163,4 +163,32 @@ server <- function(input, output, session) {
     
     map
   })
+  
+  output$activity_table <- DT::renderDataTable({
+    filtered_activities() |>
+      select(name, 
+             type, 
+             date, 
+             distance, 
+             elapsed_time,
+             total_elevation_gain, 
+             average_speed, 
+             average_heartrate) |>
+      mutate(date = format(date, "%Y-%m-%d"),
+             distance = round(distance, 1),
+             average_speed = round(average_speed, 2),
+             average_heartrate = round(average_heartrate, 0)) |>
+      rename(`Activity Name`= name,
+             Type = type,
+             Date = date,
+             `Distance (miles)` = distance,
+             `Time (hours)`= elapsed_time,
+             `Elevation (ft)` = total_elevation_gain,
+             `Average Speed` = average_speed,
+             `Avg Heartrate`= average_heartrate)}, 
+    options = list(pageLength = 15,
+                   order = list(list(2, "desc")), # start with most recent activities
+                   dom = "frtip"), # search box + table + pagination, no extra buttons
+  rownames = FALSE
+  )
 }

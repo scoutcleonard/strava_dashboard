@@ -28,7 +28,8 @@ shelf(here,
       googleway,
       leaflet,
       htmlwidgets, 
-      rsconnect)
+      rsconnect,
+      DT)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                        Data Download / Restructuring                     ----

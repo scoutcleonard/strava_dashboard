@@ -1,30 +1,15 @@
-- name: Deploy to shinyapps.io
-        env:
-          SHINYAPPS_ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
-          SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
-          SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
-        run: |
-          rsconnect::setAccountInfo(
-            name   = Sys.getenv("SHINYAPPS_ACCOUNT"),
-            token  = Sys.getenv("SHINYAPPS_TOKEN"),
-            secret = Sys.getenv("SHINYAPPS_SECRET")
-          )
-          rsconnect::deployApp(
-            appDir        = ".",
-            appPrimaryDoc = "shiny_app.R",
-            appName       = "strava-dashboard",
-            forceUpdate   = TRUE
-          )
-        shell: Rscript {0}
+name: Deploy to shinyapps.io
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout repo
@@ -41,18 +26,11 @@ jobs:
           sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev
 
       - name: Install R packages
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          packages: |
-            any::shiny
-            any::rsconnect
-            any::tidyverse
-            any::leaflet
-            any::lubridate
-            any::scales
-            any::here
-            any::htmlwidgets
-            any::googleway
+        run: |
+          install.packages(c("shiny", "rsconnect", "tidyverse", "leaflet",
+                             "lubridate", "scales", "here", "htmlwidgets",
+                             "googleway", "rStrava"))
+        shell: Rscript {0}
 
       - name: Deploy to shinyapps.io
         env:
@@ -66,8 +44,9 @@ jobs:
             secret = Sys.getenv("SHINYAPPS_SECRET")
           )
           rsconnect::deployApp(
-            appDir  = ".",
-            appName = "strava-dashboard",  # becomes your URL slug
-            forceUpdate = TRUE
+            appDir        = ".",
+            appPrimaryDoc = "app.R",
+            appName       = "strava-dashboard",
+            forceUpdate   = TRUE
           )
         shell: Rscript {0}

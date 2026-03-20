@@ -34,9 +34,10 @@ shelf(here,
 
 # Only fetch fresh data locally; use saved CSV on server
 if (!file.exists(here("data/strava_data.csv"))) {
+  
   source("../../../credentials/strava_credentials.R")
   my_data  <- get_activity_list(stoken)
-  act_data <- compile_activities(my_data) %>%
+  act_data <- compile_activities(my_data) |> 
     write_csv(here("data/strava_data.csv"))
 }
 
@@ -61,18 +62,18 @@ activities <- select(act_data, match(columns_of_interest,
                                      names(act_data)))
 
 # Process activities data
-activities <- activities %>% 
+activities <- activities  |>  
   mutate(elapsed_time = round(elapsed_time / 60 / 60, digits = 2),
          moving_time = round(moving_time / 60 / 60, digits = 2),
-         date = gsub("T.*$", '', start_date) %>% 
+         date = gsub("T.*$", '', start_date) |> 
            as.POSIXct(., format = "%Y-%m-%d"),
          year = year(date),
          month = month(date),
          week = week(date),
          year_month = format(date, "%Y-%m"),
-         year_week = paste0(year, "-W", sprintf("%02d", week))) %>% 
+         year_week = paste0(year, "-W", sprintf("%02d", week))) |> 
   rename(latitude = "start_latlng1",
-         longitude = "start_latlng2") %>% 
+         longitude = "start_latlng2") |> 
   filter(type %in% c("Ride", "Run", "Hike"))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -246,11 +247,11 @@ server <- function(input, output, session) {
     data <- activities
     
     if (input$time_period == "Year") {
-      data <- data %>% filter(year == input$selected_year)
+      data <- data |> filter(year == input$selected_year)
     } else if (input$time_period == "Month") {
-      data <- data %>% filter(year_month == input$selected_month)
+      data <- data |> filter(year_month == input$selected_month)
     } else if (input$time_period == "Week") {
-      data <- data %>% filter(year_week == input$selected_week)
+      data <- data |> filter(year_week == input$selected_week)
     } 
     
     return(data)
@@ -290,15 +291,15 @@ server <- function(input, output, session) {
     lats.range <- c(37, 38.7)
     
     # Create blank map
-    map <- leaflet(options = leafletOptions(zoomControl = TRUE)) %>%
+    map <- leaflet(options = leafletOptions(zoomControl = TRUE)) |>
       addProviderTiles('CartoDB.Positron',
                        options = providerTileOptions(noWrap = TRUE,
                                                      minZoom = 7,
-                                                     maxZoom = 15)) %>%
+                                                     maxZoom = 15)) |>
       fitBounds(lng1 = min(lons.range),
                 lat1 = max(lats.range),
                 lng2 = max(lons.range),
-                lat2 = min(lats.range)) %>% 
+                lat2 = min(lats.range)) |> 
       addLegend(colors = c("#bd423e", "#91c0d9", "#2d3ea1"),
                 labels = c("Ride", "Run", "Hike"),
                 position = "bottomright")
@@ -332,7 +333,7 @@ server <- function(input, output, session) {
                        '<p></p>',
                        '<b>Elevation Gain (Feet): </b>',
                        round(activity$total_elevation_gain, 0),
-                       '<p>') %>% 
+                       '<p>') |> 
           htmltools::HTML()
         
         # Add polyline with appropriate color

@@ -36,9 +36,13 @@ shelf(here,
 if (!file.exists(here("data/strava_data.csv"))) {
   
   source("../../../credentials/strava_credentials.R")
+  
   my_data  <- get_activity_list(stoken)
+  
   act_data <- compile_activities(my_data) |> 
+    
     write_csv(here("data/strava_data.csv"))
+  
 }
 
 act_data <- read_csv(here("data/strava_data.csv"))

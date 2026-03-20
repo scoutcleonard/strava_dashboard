@@ -3,7 +3,7 @@ name: Deploy to shinyapps.io
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -45,7 +45,7 @@ jobs:
           )
           rsconnect::deployApp(
             appDir        = ".",
-            appPrimaryDoc = "app.R",
+            appPrimaryDoc = "shiny_app.R",
             appName       = "strava-dashboard",
             forceUpdate   = TRUE
           )

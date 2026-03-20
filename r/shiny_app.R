@@ -23,7 +23,8 @@ shelf(here,
       feather,
       googleway,
       leaflet,
-      htmlwidgets)
+      htmlwidgets, 
+      rsconnect)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                                                            --
@@ -31,18 +32,15 @@ shelf(here,
 ##                                                                            --
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Strava credentials (outside this github repo)
- # source("../../../credentials/strava_credentials.R")
+# Only fetch fresh data locally; use saved CSV on server
+if (!file.exists(here("data/strava_data.csv"))) {
+  source("../../../credentials/strava_credentials.R")
+  my_data  <- get_activity_list(stoken)
+  act_data <- compile_activities(my_data) %>%
+    write_csv(here("data/strava_data.csv"))
+}
 
-# Download and compile activities
-my_data  <- get_activity_list(stoken)
-act_data <- compile_activities(my_data)
-
-# Save and read data
-act_data <- compile_activities(my_data) %>% 
-  write_csv(here("data/strava_data.csv"))
-
-act_data <- read_csv(here("data/strava_data.csv")) # data file called in my .gitignore
+act_data <- read_csv(here("data/strava_data.csv"))
 
 # Select columns of interest
 columns_of_interest <- c('distance',

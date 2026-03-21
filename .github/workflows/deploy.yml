@@ -29,7 +29,8 @@ jobs:
         run: |
           install.packages(c("shiny", "rsconnect", "tidyverse", "leaflet",
                              "lubridate", "scales", "here", "htmlwidgets",
-                             "googleway", "rStrava"))
+                             "googleway", "DT", "remotes"))
+          remotes::install_github("fawda123/rStrava")
         shell: Rscript {0}
 
       - name: Check files

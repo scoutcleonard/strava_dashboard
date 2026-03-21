@@ -11,16 +11,18 @@ setwd(here::here())
 ##                               Load Libraries                             ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-library(here)
-library(ggplot2)
 library(shiny)
-library(tidyverse)
-library(leaflet)
+library(dplyr)
+library(tidyr)
+library(readr)
+library(ggplot2)
+library(purrr)
 library(lubridate)
 library(scales)
-library(googleway)
+library(leaflet)
+library(here)
 library(htmlwidgets)
-library(rsconnect)
+library(googleway)
 library(DT)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

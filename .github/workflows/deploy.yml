@@ -30,9 +30,9 @@ jobs:
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          install.packages(c("shiny", "rsconnect", "tidyverse", "leaflet",
-                             "lubridate", "scales", "here", "htmlwidgets",
-                             "googleway", "DT", "remotes", "ragg"))
+          install.packages(c("shiny", "rsconnect", "dplyr", "tidyr", "readr",
+                             "ggplot2", "purrr", "lubridate", "scales", "leaflet",
+                             "here", "htmlwidgets", "googleway", "DT", "remotes"))
           remotes::install_github("fawda123/rStrava",
                                   auth_token = Sys.getenv("GITHUB_PAT"))
         shell: Rscript {0}

@@ -23,15 +23,18 @@ columns_of_interest <- c('distance',
                          'pr_count',
                          'name')
 
-
-# Only fetch fresh data locally; use saved CSV on server
-if (!file.exists(here("data/strava_data.csv"))) {
-  
+if (file.exists(here::here("data/strava_data.csv"))) {
+  # skip API fetch, just read the CSV
+  act_data <- readr::read_csv(here::here("data/strava_data.csv"))
+} else {
+  # only runs locally when CSV is missing
+  library(rStrava)
   source("../../../credentials/strava_credentials.R")
   my_data  <- get_activity_list(stoken)
-  act_data <- compile_activities(my_data) |> 
-    select(any_of(columns_of_interest)) |> 
-    write_csv(here("data/strava_data.csv"))
+  compile_activities(my_data) |>
+    select(any_of(columns_of_interest)) |>
+    write_csv(here::here("data/strava_data.csv"))
+  act_data <- read_csv(here::here("data/strava_data.csv"))
 }
 
 act_data <- read_csv(here("data/strava_data.csv"))

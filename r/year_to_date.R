@@ -35,14 +35,15 @@ heatmap <- ggplot(heatmap_data,
   scale_fill_gradient(low = "#91c0d9", high = "#2d3ea1",
                       name = "Hours") +
   scale_y_discrete(limits = rev(month.abb)) +
-  labs(x = NULL, y = NULL) +
+  labs(x = 'year', y = 'month') +
+  coord_flip() +
   theme_minimal() +
   theme(text = element_text(family = "Nunito"),
-    panel.grid = element_blank(),
-    axis.text = element_text(color = "#3d302f", 
-                             size = 11),
-    legend.position = "bottom",
-    plot.background = element_rect(fill = "#e4e6cc", 
-                                   color = NA),
-    panel.background = element_rect(fill = "#e4e6cc", 
-                                    color = NA))
+        panel.grid = element_blank(),
+        axis.text = element_text(color = "#3d302f", 
+                                 size = 11),
+        legend.position = "bottom",
+        plot.background = element_rect(fill = "#e4e6cc", 
+                                       color = NA),
+        panel.background = element_rect(fill = "#e4e6cc", 
+                                        color = NA))

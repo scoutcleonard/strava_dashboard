@@ -11,34 +11,24 @@ setwd(here::here())
 ##                               Load Libraries                             ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Install and load librarian package if needed
-if (!require(librarian)) {
-  install.packages("librarian")
-  library(librarian)
-}
-
-# Load packages
-shelf(here, 
-      ARTofR, 
-      ggplot2, 
-      shiny,
-      rStrava,
-      tidyverse,
-      leaflet,
-      lubridate,
-      scales,
-      feather,
-      googleway,
-      leaflet,
-      htmlwidgets, 
-      rsconnect,
-      DT)
+library(here)
+library(ggplot2)
+library(shiny)
+library(rStrava)
+library(tidyverse)
+library(leaflet)
+library(lubridate)
+library(scales)
+library(googleway)
+library(htmlwidgets)
+library(rsconnect)
+library(DT)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                        Data Download / Restructuring                     ----
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-source(here('r/cleaning_strava_export.R'))
+source(here::here('r/cleaning_strava_export.R'))
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##                                                                            --

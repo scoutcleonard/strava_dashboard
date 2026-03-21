@@ -3,10 +3,13 @@ ui <- navbarPage(
   
   # apply your existing styles globally
   header = tags$head(
-    tags$link(rel = "stylesheet",
-              href = "https://fonts.googleapis.com/css2?family=Ranchers&family=Nunito:wght@400;500;600&display=swap"),
-    tags$link(rel = "stylesheet",
-              href = "styles.css")  # Shiny always serves www/ from the app root
+    tags$link(
+      rel  = "stylesheet",
+      href = "https://fonts.googleapis.com/css2?family=Ranchers&family=Nunito:wght@400;500;600&display=swap"
+    ),
+    tags$style(
+      HTML(paste(readLines(here::here("www/styles.css")), collapse = "\n"))
+    )
   ),
   
   # ---- Tab 1: Map ----

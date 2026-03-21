@@ -44,7 +44,18 @@ activities <- act_data |>
          month = month(date),
          week = week(date),
          year_month = format(date, "%Y-%m"),
-         year_week = paste0(year, "-W", sprintf("%02d", week))) |> 
+         year_week = paste0(year, "-W", sprintf("%02d", week)),
+         distance = distance * 0.621371,
+         average_speed = average_speed * 0.621371,
+         max_speed = 0.621371 * max_speed,
+         elev_high = elev_high * 0.621371,
+         elev_low = elev_low * 0.621371,
+         total_elevation_gain = total_elevation_gain * 0.621371) |> 
   rename(latitude = "start_latlng1",
          longitude = "start_latlng2") |> 
-  filter(type %in% c("Ride", "Run", "Hike"))
+  filter(type %in% c("Ride", "Run", "Hike")) # pre-decode all polylines once at startup
+
+
+activities_coords <- activities |>
+  filter(!is.na(map.summary_polyline), map.summary_polyline != "") |>
+  mutate(coords = map(map.summary_polyline, decode_pl))

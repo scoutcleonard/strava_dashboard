@@ -1,5 +1,6 @@
 ui <- navbarPage(
-  title = "Scout's Pastry-Fuelled Miles 🥐",
+  
+  title = "Scout's Pastry-Fueled Miles 🥐",
   
   # apply your existing styles globally
   header = tags$head(
@@ -62,7 +63,66 @@ ui <- navbarPage(
            )
   ),
   
-  # ---- Tab 2: Data Table ----
+  # ---- Tab 2: Year to Date ----
+  # ---- Tab 2: Year to Date ----
+  tabPanel("Year to Date",
+           div(style = "padding: 32px;",
+               
+               # top header
+               h3(style = paste("font-family: 'Ranchers', cursive;",
+                                "color: #2d3ea1;",
+                                "font-size: 28px;",
+                                "margin-bottom: 24px;"),
+                  paste(year, "so far...")),
+               
+               # ---- row 1: big three ----
+               fluidRow(
+                 column(4,
+                        div(class = "stat-card",
+                            div(class = "stat-number", textOutput("stat_activities")),
+                            div(class = "stat-label", "activities")
+                        )
+                 ),
+                 column(4,
+                        div(class = "stat-card",
+                            div(class = "stat-number", textOutput("stat_miles")),
+                            div(class = "stat-label", "miles")
+                        )
+                 ),
+                 column(4,
+                        div(class = "stat-card",
+                            div(class = "stat-number", textOutput("stat_kudos")),
+                            div(class = "stat-label", "kudos")
+                        )
+                 )
+               ),
+               
+               # ---- row 2: more stats ----
+               fluidRow(
+                 style = "margin-top: 20px;",
+                 column(4,
+                        div(class = "stat-card",
+                            div(class = "stat-number", textOutput("stat_hours")),
+                            div(class = "stat-label", "hours moving")
+                        )
+                 ),
+                 column(4,
+                        div(class = "stat-card",
+                            div(class = "stat-number", textOutput("stat_elevation")),
+                            div(class = "stat-label", "feet climbed")
+                        )
+                 ),
+                 column(4,
+                        div(class = "stat-card",
+                            div(class = "stat-number", textOutput("stat_prs")),
+                            div(class = "stat-label", "personal records")
+                        )
+                 )
+               )
+           )
+  ),
+  
+  # ---- Tab 3: Data Table ----
   tabPanel("Strava Data",
            div(style = "padding: 20px;",
                fluidRow(

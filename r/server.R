@@ -149,4 +149,29 @@ server <- function(input, output, session) {
                   dom   = "frtip"),
   rownames = FALSE
   )
+  
+  # ---- year to date stats ----
+  output$stat_activities <- renderText({
+    format(n_activities_to_date, big.mark = ",")
+  })
+  
+  output$stat_miles <- renderText({
+    format(round(total_miles_to_date, 0), big.mark = ",")
+  })
+  
+  output$stat_kudos <- renderText({
+    format(total_kudos_to_date, big.mark = ",")
+  })
+  
+  output$stat_hours <- renderText({
+    format(round(sum(act_data_current_year$elapsed_time, na.rm = TRUE), 0), big.mark = ",")
+  })
+  
+  output$stat_elevation <- renderText({
+    format(round(sum(act_data_current_year$total_elevation_gain, na.rm = TRUE), 0), big.mark = ",")
+  })
+  
+  output$stat_prs <- renderText({
+    format(sum(act_data_current_year$pr_count, na.rm = TRUE), big.mark = ",")
+  })
 }              

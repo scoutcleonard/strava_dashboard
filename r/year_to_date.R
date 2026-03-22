@@ -21,7 +21,7 @@ total_miles_to_date <- sum(act_data_current_year$distance)
 ##                                                                            --
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-heatmap_data <- act_data |>
+heatmap_data <- activities |>
   select(distance, elapsed_time, type, start_date) |>
   mutate(
     year  = factor(year(start_date)),

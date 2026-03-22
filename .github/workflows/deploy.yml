@@ -48,7 +48,14 @@ jobs:
           SHINYAPPS_ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
           SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
           SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          install.packages(c("shiny", "rsconnect", "dplyr", "tidyr", "readr",
+                             "ggplot2", "purrr", "lubridate", "scales", "leaflet",
+                             "here", "htmlwidgets", "googleway", "DT", "remotes",
+                             "showtext"))
+          remotes::install_github("fawda123/rStrava",
+                                  auth_token = Sys.getenv("GITHUB_PAT"))
           rsconnect::setAccountInfo(
             name   = Sys.getenv("SHINYAPPS_ACCOUNT"),
             token  = Sys.getenv("SHINYAPPS_TOKEN"),

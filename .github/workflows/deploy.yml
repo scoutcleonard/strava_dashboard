@@ -65,6 +65,7 @@ jobs:
             appDir        = ".",
             appPrimaryDoc = "shiny_app.R",
             appName       = "strava-dashboard",
-            forceUpdate   = TRUE
+            forceUpdate   = TRUE,
+            logLevel      = "verbose"
           )
         shell: Rscript {0}

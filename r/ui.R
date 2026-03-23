@@ -122,6 +122,22 @@ ui <- navbarPage(
            )
   ),
   
+  # ---- row 3: heatmap ----
+  fluidRow(
+    style = "margin-top: 32px;",
+    column(12,
+           div(
+             style = paste(
+               "background: #e4e6cc;",
+               "border-radius: 10px;",
+               "padding: 16px;",
+               "box-shadow: 4px 4px 0px #3d302f;"
+             ),
+             plotOutput("heatmap_plot", height = "300px")
+           )
+    )
+  ),
+  
   # ---- Tab 3: Data Table ----
   tabPanel("Strava Data",
            div(style = "padding: 20px;",

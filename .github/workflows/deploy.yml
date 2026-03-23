@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout repo
@@ -23,18 +24,23 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev \
-            libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
+          sudo apt-get install -y \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libxml2-dev \
+            libfreetype6-dev \
+            libpng-dev \
+            libtiff5-dev \
+            libjpeg-dev
 
       - name: Install R packages
-        env:
-          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          install.packages(c("shiny", "rsconnect", "dplyr", "tidyr", "readr",
-                             "ggplot2", "purrr", "lubridate", "scales", "leaflet",
-                             "here", "htmlwidgets", "googleway", "DT", "remotes"))
-          remotes::install_github("fawda123/rStrava",
-                                  auth_token = Sys.getenv("GITHUB_PAT"))
+          install.packages(c(
+            "shiny", "rsconnect", "remotes",
+            "dplyr", "tidyr", "readr", "ggplot2", "purrr",
+            "lubridate", "scales", "leaflet",
+            "here", "htmlwidgets", "googleway", "DT"
+          ))
         shell: Rscript {0}
 
       - name: Check files
@@ -48,14 +54,7 @@ jobs:
           SHINYAPPS_ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
           SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
           SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
-          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          install.packages(c("shiny", "rsconnect", "dplyr", "tidyr", "readr",
-                             "ggplot2", "purrr", "lubridate", "scales", "leaflet",
-                             "here", "htmlwidgets", "googleway", "DT", "remotes",
-                             "showtext"))
-          remotes::install_github("fawda123/rStrava",
-                                  auth_token = Sys.getenv("GITHUB_PAT"))
           rsconnect::setAccountInfo(
             name   = Sys.getenv("SHINYAPPS_ACCOUNT"),
             token  = Sys.getenv("SHINYAPPS_TOKEN"),

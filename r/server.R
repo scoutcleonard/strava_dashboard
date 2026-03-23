@@ -174,4 +174,9 @@ server <- function(input, output, session) {
   output$stat_prs <- renderText({
     format(sum(act_data_current_year$pr_count, na.rm = TRUE), big.mark = ",")
   })
+  
+  # ---- heatmap ----
+  output$heatmap_plot <- renderPlot({
+    heatmap
+  })
 }              

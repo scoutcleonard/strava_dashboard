@@ -31,7 +31,10 @@ jobs:
             libfreetype6-dev \
             libpng-dev \
             libtiff5-dev \
-            libjpeg-dev
+            libjpeg-dev \
+            libproj-dev \
+            libgdal-dev \
+            libgeos-dev
 
       - name: Install R packages
         run: |

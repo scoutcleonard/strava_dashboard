@@ -5,3 +5,5 @@
 .DS_Store
 .quarto
 /data/strava_data.csv
+renv/
+renv.lock

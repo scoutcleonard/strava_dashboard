@@ -64,11 +64,9 @@ ui <- navbarPage(
   ),
   
   # ---- Tab 2: Year to Date ----
-  # ---- Tab 2: Year to Date ----
   tabPanel("Year to Date",
            div(style = "padding: 32px;",
                
-               # top header
                h3(style = paste("font-family: 'Ranchers', cursive;",
                                 "color: #2d3ea1;",
                                 "font-size: 28px;",
@@ -118,25 +116,27 @@ ui <- navbarPage(
                             div(class = "stat-label", "personal records")
                         )
                  )
+               ),
+               
+               # ---- row 3: heatmap ---- (now INSIDE the tabPanel)
+               fluidRow(
+                 style = "margin-top: 32px;",
+                 column(12,
+                        div(
+                          style = paste(
+                            "background: #e4e6cc;",
+                            "border-radius: 10px;",
+                            "padding: 16px;",
+                            "box-shadow: 4px 4px 0px #3d302f;"
+                          ),
+                          plotOutput("heatmap_plot", height = "300px")
+                        )
+                 )
                )
-           )
-  ),
+               
+           )  # closes div(style = "padding: 32px;")
+  ),   # closes tabPanel("Year to Date")
   
-  # ---- row 3: heatmap ----
-  fluidRow(
-    style = "margin-top: 32px;",
-    column(12,
-           div(
-             style = paste(
-               "background: #e4e6cc;",
-               "border-radius: 10px;",
-               "padding: 16px;",
-               "box-shadow: 4px 4px 0px #3d302f;"
-             ),
-             plotOutput("heatmap_plot", height = "300px")
-           )
-    )
-  ),
   
   # ---- Tab 3: Data Table ----
   tabPanel("Strava Data",

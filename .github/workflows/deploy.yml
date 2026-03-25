@@ -58,6 +58,12 @@ jobs:
           SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
           SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
         run: |
+          install.packages(c(
+            "shiny", "rsconnect", "remotes",
+            "dplyr", "tidyr", "readr", "ggplot2", "purrr",
+            "lubridate", "scales", "leaflet", "leaflet.providers",
+            "here", "htmlwidgets", "googleway", "DT"
+          ))
           rsconnect::setAccountInfo(
             name   = Sys.getenv("SHINYAPPS_ACCOUNT"),
             token  = Sys.getenv("SHINYAPPS_TOKEN"),

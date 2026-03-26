@@ -69,6 +69,7 @@ jobs:
             token  = Sys.getenv("SHINYAPPS_TOKEN"),
             secret = Sys.getenv("SHINYAPPS_SECRET")
           )
+          options(rsconnect.packrat = FALSE)
           rsconnect::deployApp(
             appDir        = ".",
             appPrimaryDoc = "shiny_app.R",

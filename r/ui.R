@@ -64,7 +64,7 @@ ui <- navbarPage(
   ),
   
   # ---- Tab 2: Year to Date ----
-  tabPanel("Year to Date",
+  tabPanel("By the Numbers",
            div(style = "padding: 32px;",
                
                h3(style = paste("font-family: 'Ranchers', cursive;",
@@ -117,6 +117,14 @@ ui <- navbarPage(
                         )
                  )
                ),
+               
+               div(style = "padding: 32px;",
+                   
+                   h3(style = paste("font-family: 'Ranchers', cursive;",
+                                    "color: #2d3ea1;",
+                                    "font-size: 28px;",
+                                    "margin-bottom: 24px;"),
+                      "All Time Stats")),
                
                # ---- row 3: heatmap ---- (now INSIDE the tabPanel)
                fluidRow(

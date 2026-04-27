@@ -46,7 +46,7 @@ server <- function(input, output, session) {
     
     total_activities <- nrow(data)
     total_distance   <- round(sum(data$distance, na.rm = TRUE), 1)
-    total_time       <- round(sum(data$elapsed_time, na.rm = TRUE), 1)
+    total_time       <- round(sum(data$movingtime, na.rm = TRUE), 1)
     total_elevation  <- round(sum(data$total_elevation_gain, na.rm = TRUE), 0)
     rides  <- sum(data$type == "Ride")
     runs   <- sum(data$type == "Run")

@@ -51,9 +51,9 @@ activities <- act_data |>
          distance = distance * 0.621371,
          average_speed = average_speed * 0.621371,
          max_speed = 0.621371 * max_speed,
-         elev_high = elev_high * 0.621371,
-         elev_low = elev_low * 0.621371,
-         total_elevation_gain = total_elevation_gain * 0.621371) |> 
+         elev_high = elev_high * 3.28084,
+         elev_low = elev_low * 3.28084,
+         total_elevation_gain = total_elevation_gain * 3.28084) |> 
   rename(latitude = "start_latlng1",
          longitude = "start_latlng2") |> 
   filter(type %in% c("Ride", "Run", "Hike")) # pre-decode all polylines once at startup
